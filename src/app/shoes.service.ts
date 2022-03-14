@@ -42,7 +42,7 @@ export class ShoesService {
   }
 
   getShoeInfo(prdNo: number) {
-    return this.http.get(`http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(
+    return this.http.get(`https://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(
       map(response => this.mapData(response))
     )
   }
@@ -62,7 +62,7 @@ export class ShoesService {
   getShoesInfo(prdNoList: number[]) {
     const requests: Observable<any>[] = [];
     prdNoList.map(prdNo => {
-      return requests.push(this.http.get(`http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(
+      return requests.push(this.http.get(`https://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(
         map(response => this.mapData(response))
       ))
     });
