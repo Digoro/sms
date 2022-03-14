@@ -1269,7 +1269,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function getShoeInfo(prdNo) {
           var _this2 = this;
 
-          return this.http.get("http://abcmart.a-rt.com/product/info?prdtNo=".concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+          return this.http.get("https://abcmart.a-rt.com/product/info?prdtNo=".concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
             return _this2.mapData(response);
           }));
         }
@@ -1292,7 +1292,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           var requests = [];
           prdNoList.map(function (prdNo) {
-            return requests.push(_this3.http.get("http://abcmart.a-rt.com/product/info?prdtNo=".concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            return requests.push(_this3.http.get("https://abcmart.a-rt.com/product/info?prdtNo=".concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
               return _this3.mapData(response);
             })));
           });

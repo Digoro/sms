@@ -640,7 +640,7 @@ class ShoesService {
         localStorage.removeItem('items');
     }
     getShoeInfo(prdNo) {
-        return this.http.get(`http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response)));
+        return this.http.get(`https://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response)));
     }
     mapData(response) {
         const data = JSON.parse(response['contents']);
@@ -658,7 +658,7 @@ class ShoesService {
     getShoesInfo(prdNoList) {
         const requests = [];
         prdNoList.map(prdNo => {
-            return requests.push(this.http.get(`http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response))));
+            return requests.push(this.http.get(`https://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response))));
         });
         if (requests.length === 0)
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
