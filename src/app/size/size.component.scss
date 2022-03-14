@@ -1,0 +1,15 @@
+.col {
+    padding: 0px 5px 5px 0px
+}
+
+input::placeholder {
+    font-size: 14px;
+}
+
+input::-webkit-input-placeholder {
+    font-size: 14px;
+}
+
+input:-ms-input-placeholder {
+    font-size: 14px;
+}

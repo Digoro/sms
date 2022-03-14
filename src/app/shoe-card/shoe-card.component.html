@@ -1,0 +1,57 @@
+<ng-container *ngIf="shoe.status">
+    <button class="btn btn-primary btn-sm" style="font-size: 14px;font-weight: bold;" (click)="remove(shoe)">삭제</button>
+    <div class="card" [ngClass]="shoe.data.productPrice.normalAmt > shoe.data.displayProductPrice ? 'blinking' : ''">
+        <img [src]="shoe.data.productImage[0].imageUrl" class="card-img-top">
+        <div class="card-body">
+            <a [href]="'http://abcmart.a-rt.com/product/new?prdtNo=' + shoe.data.prdtNo" target="_blank"
+                style="font-size: 17px; margin-bottom: 5px;">{{shoe.data.prdtName}}
+            </a>
+            <p *ngIf="shoe.data.productPrice.normalAmt >= shoe.data.displayProductPrice" class="info">
+                가격:{{shoe.data.productPrice.normalAmt|number}}원
+            </p>
+            <p *ngIf="shoe.data.productPrice.normalAmt > shoe.data.displayProductPrice" class="info">
+                가격: <span
+                    style="text-decoration: line-through;">{{shoe.data.productPrice.normalAmt|number}}원</span>&nbsp;
+                <span style="color: red;">{{shoe.data.displayProductPrice|number}}원
+                    ({{shoe.data.displayDiscountRate}}%)</span>
+
+            </p>
+            <p class="info">상품코드: {{shoe.data.prdtNo}}</p>
+            <p class="info">스타일코드: {{shoe.data.styleInfo}}</p>
+            <p class="info">구매제한:
+                <ng-container *ngIf="shoe.data.buyLimitYn === 'Y'">
+                    <span class="badge badge-danger">제한있음</span>&nbsp;
+                    <span>(하루 {{shoe.data.dayMaxBuyPsbltQty}}개)</span>
+                </ng-container>
+                <ng-container *ngIf="shoe.data.buyLimitYn === 'N'">
+                    <span class="badge badge-secondary">제한없음</span>
+                </ng-container>
+            </p>
+            <div style="margin-top: 12px;">
+                <table class="table table-bordered table-sm" style="text-align: center;">
+                    <tr style="background-color: #f0f0f0;">
+                        <th>사이즈</th>
+                        <th>수량</th>
+                    </tr>
+                    <tr *ngFor="let info of shoe.data.productOption">
+                        <td>
+                            <strong>{{info.prdtOptnNo}}</strong>
+                        </td>
+                        <td *ngIf="info.orderPsbltQty === 0">
+                            <span style="color:red">{{info.orderPsbltQty}}</span>
+                        </td>
+                        <td *ngIf="info.orderPsbltQty > 0">
+                            <span style="color:blue">{{info.orderPsbltQty}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="!shoe.status">
+    <button class="btn btn-primary btn-sm" style="font-size: 14px;font-weight: bold;" (click)="remove(shoe)">삭제</button>
+    <div class="alert alert-danger" role="alert">
+        상품번호: <code>{{shoe.data}}</code>의 신발이 존재하지 않습니다.
+    </div>
+</ng-container>

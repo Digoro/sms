@@ -1,0 +1,17 @@
+<button class="btn btn-secondary" [routerLink]="'/'" style="margin-bottom: 10px;">뒤로가기</button>
+
+<div *ngIf="isLoad && shoe">
+    <div class="col col-12 col-lg-3">
+        <shoe-card [shoe]="shoe"></shoe-card>
+    </div>
+</div>
+
+<div *ngIf="isLoad && !shoe" style="text-align: center; margin-top: 35px;">
+    <p class="font-weight-lighter"><img src="/sms/assets/loading.gif" style="margin-top: -4px;">&nbsp; 조회중입니다.</p>
+</div>
+
+<div *ngIf="!isLoad && !shoe">
+    <div class="alert alert-danger" role="alert">
+        상품번호: <code>{{searchInput}}</code>의 신발이 존재하지 않습니다.
+    </div>
+</div>
