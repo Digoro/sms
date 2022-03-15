@@ -1218,11 +1218,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
 
     var ShoesService = /*#__PURE__*/function () {
-      // corsProxyServer = "https://thingproxy.freeboard.io/fetch";
       function ShoesService(http) {
         _classCallCheck(this, ShoesService);
 
         this.http = http;
+        this.corsProxyServer = "https://thingproxy.freeboard.io/fetch";
       }
 
       _createClass(ShoesService, [{
@@ -1270,23 +1270,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function getShoeInfo(prdNo) {
           var _this2 = this;
 
-          return this.http.get("/product/info?prdtNo=".concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+          return this.http.get("".concat(this.corsProxyServer, "/http://abcmart.a-rt.com/product/info?prdtNo=").concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
             return _this2.mapData(response);
           }));
-        }
-      }, {
-        key: "getShoesInfo",
-        value: function getShoesInfo(prdNoList) {
-          var _this3 = this;
-
-          var requests = [];
-          prdNoList.map(function (prdNo) {
-            return requests.push(_this3.http.get("/product/info?prdtNo=".concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
-              return _this3.mapData(response);
-            })));
-          });
-          if (requests.length === 0) return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(requests);
         }
       }, {
         key: "mapData",
@@ -1299,6 +1285,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             status: false,
             data: response['status']['url'].split("prdtNo=")[1]
           };
+        }
+      }, {
+        key: "getShoesInfo",
+        value: function getShoesInfo(prdNoList) {
+          var _this3 = this;
+
+          var requests = [];
+          prdNoList.map(function (prdNo) {
+            return requests.push(_this3.http.get("".concat(_this3.corsProxyServer, "/http://abcmart.a-rt.com/product/info?prdtNo=").concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+              return _this3.mapData(response);
+            })));
+          });
+          if (requests.length === 0) return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(requests);
         }
       }]);
 

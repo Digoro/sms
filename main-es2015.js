@@ -608,9 +608,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ShoesService {
-    // corsProxyServer = "https://thingproxy.freeboard.io/fetch";
     constructor(http) {
         this.http = http;
+        this.corsProxyServer = "https://thingproxy.freeboard.io/fetch";
     }
     getItems() {
         let items = JSON.parse(localStorage.getItem('items'));
@@ -641,16 +641,7 @@ class ShoesService {
         localStorage.removeItem('items');
     }
     getShoeInfo(prdNo) {
-        return this.http.get(`/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response)));
-    }
-    getShoesInfo(prdNoList) {
-        const requests = [];
-        prdNoList.map(prdNo => {
-            return requests.push(this.http.get(`/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response))));
-        });
-        if (requests.length === 0)
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(requests);
+        return this.http.get(`${this.corsProxyServer}/http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response)));
     }
     mapData(response) {
         const data = response;
@@ -664,6 +655,15 @@ class ShoesService {
                 status: false,
                 data: response['status']['url'].split("prdtNo=")[1]
             };
+    }
+    getShoesInfo(prdNoList) {
+        const requests = [];
+        prdNoList.map(prdNo => {
+            return requests.push(this.http.get(`${this.corsProxyServer}/http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response))));
+        });
+        if (requests.length === 0)
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(requests);
     }
 }
 ShoesService.ɵfac = function ShoesService_Factory(t) { return new (t || ShoesService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
