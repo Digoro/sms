@@ -1279,13 +1279,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "mapData",
         value: function mapData(response) {
           var data = response;
-          if (data) return {
-            status: true,
-            data: data
-          };else return {
-            status: false,
-            data: response['status']['url'].split("prdtNo=")[1]
-          };
+
+          if (data) {
+            return {
+              status: true,
+              data: data
+            };
+          } else {
+            // return {
+            //   status: false,
+            //   data: response['status']['url'].split("prdtNo=")[1]
+            // }
+            return undefined;
+          }
         }
       }, {
         key: "getShoesInfo",

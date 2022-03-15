@@ -646,16 +646,19 @@ class ShoesService {
     }
     mapData(response) {
         const data = response;
-        if (data)
+        if (data) {
             return {
                 status: true,
                 data: data
             };
-        else
-            return {
-                status: false,
-                data: response['status']['url'].split("prdtNo=")[1]
-            };
+        }
+        else {
+            // return {
+            //   status: false,
+            //   data: response['status']['url'].split("prdtNo=")[1]
+            // }
+            return undefined;
+        }
     }
     getShoesInfo(prdNoList) {
         const requests = [];
