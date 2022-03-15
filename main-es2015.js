@@ -608,9 +608,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class ShoesService {
+    // corsProxyServer = "https://thingproxy.freeboard.io/fetch";
     constructor(http) {
         this.http = http;
-        this.corsProxyServer = "https://thingproxy.freeboard.io/fetch";
     }
     getItems() {
         let items = JSON.parse(localStorage.getItem('items'));
@@ -641,16 +641,12 @@ class ShoesService {
         localStorage.removeItem('items');
     }
     getShoeInfo(prdNo) {
-        return this.http.get(`${this.corsProxyServer}/http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response)));
+        return this.http.get(`/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response)));
     }
     getShoesInfo(prdNoList) {
         const requests = [];
         prdNoList.map(prdNo => {
-            const headers = {
-                'Access-Control-Allow-Origin': 'https://digoro.github.io/sms',
-                "Content-Type": 'application/json'
-            };
-            return requests.push(this.http.get(`${this.corsProxyServer}/http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`, { headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response))));
+            return requests.push(this.http.get(`/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response))));
         });
         if (requests.length === 0)
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
