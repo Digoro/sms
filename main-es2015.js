@@ -611,7 +611,7 @@ class ShoesService {
     constructor(http) {
         this.http = http;
         // corsProxyServer = "https://thingproxy.freeboard.io/fetch";
-        this.corsProxyServer = "https://cors-anywhere.herokuapp.com";
+        this.corsProxyServer = "https://digoro-cors-anywhere.herokuapp.com";
     }
     getItems() {
         let items = JSON.parse(localStorage.getItem('items'));
@@ -642,9 +642,9 @@ class ShoesService {
         localStorage.removeItem('items');
     }
     getShoeInfo(prdNo) {
-        return this.http.get(`${this.corsProxyServer}/http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response)));
+        return this.http.get(`${this.corsProxyServer}/http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response, prdNo)));
     }
-    mapData(response) {
+    mapData(response, prdNo) {
         const data = response;
         if (data) {
             return {
@@ -653,17 +653,16 @@ class ShoesService {
             };
         }
         else {
-            // return {
-            //   status: false,
-            //   data: response['status']['url'].split("prdtNo=")[1]
-            // }
-            return undefined;
+            return {
+                status: false,
+                data: prdNo
+            };
         }
     }
     getShoesInfo(prdNoList) {
         const requests = [];
         prdNoList.map(prdNo => {
-            return requests.push(this.http.get(`${this.corsProxyServer}/http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response))));
+            return requests.push(this.http.get(`${this.corsProxyServer}/http://abcmart.a-rt.com/product/info?prdtNo=${prdNo}`).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(response => this.mapData(response, prdNo))));
         });
         if (requests.length === 0)
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);

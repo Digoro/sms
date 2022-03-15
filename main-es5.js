@@ -1223,7 +1223,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this.http = http; // corsProxyServer = "https://thingproxy.freeboard.io/fetch";
 
-        this.corsProxyServer = "https://cors-anywhere.herokuapp.com";
+        this.corsProxyServer = "https://digoro-cors-anywhere.herokuapp.com";
       }
 
       _createClass(ShoesService, [{
@@ -1272,12 +1272,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var _this2 = this;
 
           return this.http.get("".concat(this.corsProxyServer, "/http://abcmart.a-rt.com/product/info?prdtNo=").concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
-            return _this2.mapData(response);
+            return _this2.mapData(response, prdNo);
           }));
         }
       }, {
         key: "mapData",
-        value: function mapData(response) {
+        value: function mapData(response, prdNo) {
           var data = response;
 
           if (data) {
@@ -1286,11 +1286,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               data: data
             };
           } else {
-            // return {
-            //   status: false,
-            //   data: response['status']['url'].split("prdtNo=")[1]
-            // }
-            return undefined;
+            return {
+              status: false,
+              data: prdNo
+            };
           }
         }
       }, {
@@ -1301,7 +1300,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var requests = [];
           prdNoList.map(function (prdNo) {
             return requests.push(_this3.http.get("".concat(_this3.corsProxyServer, "/http://abcmart.a-rt.com/product/info?prdtNo=").concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
-              return _this3.mapData(response);
+              return _this3.mapData(response, prdNo);
             })));
           });
           if (requests.length === 0) return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
