@@ -1275,6 +1275,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }));
         }
       }, {
+        key: "getShoesInfo",
+        value: function getShoesInfo(prdNoList) {
+          var _this3 = this;
+
+          var requests = [];
+          prdNoList.map(function (prdNo) {
+            var headers = {
+              'Access-Control-Allow-Origin': 'https://digoro.github.io/sms',
+              "Content-Type": 'application/json'
+            };
+            return requests.push(_this3.http.get("".concat(_this3.corsProxyServer, "/http://abcmart.a-rt.com/product/info?prdtNo=").concat(prdNo), {
+              headers: headers
+            }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+              return _this3.mapData(response);
+            })));
+          });
+          if (requests.length === 0) return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(requests);
+        }
+      }, {
         key: "mapData",
         value: function mapData(response) {
           var data = response;
@@ -1285,20 +1305,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             status: false,
             data: response['status']['url'].split("prdtNo=")[1]
           };
-        }
-      }, {
-        key: "getShoesInfo",
-        value: function getShoesInfo(prdNoList) {
-          var _this3 = this;
-
-          var requests = [];
-          prdNoList.map(function (prdNo) {
-            return requests.push(_this3.http.get("".concat(_this3.corsProxyServer, "/http://abcmart.a-rt.com/product/info?prdtNo=").concat(prdNo)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
-              return _this3.mapData(response);
-            })));
-          });
-          if (requests.length === 0) return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
-          return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])(requests);
         }
       }]);
 
