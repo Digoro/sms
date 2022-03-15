@@ -1221,8 +1221,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       function ShoesService(http) {
         _classCallCheck(this, ShoesService);
 
-        this.http = http;
-        this.corsProxyServer = "https://thingproxy.freeboard.io/fetch";
+        this.http = http; // corsProxyServer = "https://thingproxy.freeboard.io/fetch";
+
+        this.corsProxyServer = "https://cors-anywhere.herokuapp.com";
       }
 
       _createClass(ShoesService, [{

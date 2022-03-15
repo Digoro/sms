@@ -610,7 +610,8 @@ __webpack_require__.r(__webpack_exports__);
 class ShoesService {
     constructor(http) {
         this.http = http;
-        this.corsProxyServer = "https://thingproxy.freeboard.io/fetch";
+        // corsProxyServer = "https://thingproxy.freeboard.io/fetch";
+        this.corsProxyServer = "https://cors-anywhere.herokuapp.com";
     }
     getItems() {
         let items = JSON.parse(localStorage.getItem('items'));
